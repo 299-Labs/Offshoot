@@ -16,6 +16,6 @@ jobs:
           script: |
             cd /opt/Offshoot
             git pull origin main
-            source offshoot_venv/bin/activate
-            pip install -r requirements.txt
+            npm install --production=false
+            npm run build
             sudo systemctl restart offshoot
