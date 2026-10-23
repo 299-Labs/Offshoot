@@ -14,12 +14,19 @@ interface TreeState {
     anchorSnippet: string;
     activeBranchNodeId: string | null;
   };
+
+  // Sidebar visibility state
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  setSidebarOpen: (open: boolean) => void;
+
   initStore: () => Promise<void>;
   loadConversation: (conversation: DBConversation, messageList: DBMessage[]) => void;
   setActiveConversation: (id: string | null) => Promise<void>;
   setActiveNode: (id: string | null) => void;
   switchToTrunk: () => void;
   addConversation: (conversation: DBConversation) => Promise<void>;
+  updateConversation: (id: string, patch: Partial<DBConversation>) => Promise<void>;
   addMessage: (message: DBMessage) => Promise<void>;
   updateMessage: (id: string, patch: Partial<DBMessage>) => Promise<void>;
   getThreadForActive: () => DBMessage[];
@@ -34,6 +41,11 @@ export const useTreeStore = create<TreeState>((set, get) => ({
   activeConversationId: null,
   activeNodeId: null,
   tangent: { isOpen: false, parentMessageId: null, anchorSnippet: '', activeBranchNodeId: null },
+
+  isSidebarOpen: true,
+  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+  setSidebarOpen: (open) => set({ isSidebarOpen: open }),
+
   initStore: async () => {
     const convos = await db.conversations.orderBy('updatedAt').reverse().toArray();
     const convMap: Record<string, DBConversation> = {};
@@ -79,6 +91,15 @@ export const useTreeStore = create<TreeState>((set, get) => ({
       conversations: { ...state.conversations, [conversation.id]: conversation },
       activeConversationId: conversation.id,
       activeNodeId: conversation.rootMessageId || null,
+    }));
+  },
+  updateConversation: async (id, patch) => {
+    const convo = get().conversations[id];
+    if (!convo) return;
+    const updated = { ...convo, ...patch, updatedAt: Date.now() };
+    await db.conversations.put(updated);
+    set((state) => ({
+      conversations: { ...state.conversations, [id]: updated },
     }));
   },
   addMessage: async (message) => {

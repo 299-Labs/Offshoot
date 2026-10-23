@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --bg-canvas: #111313;
+  --bg-sidebar: #0d0f0e;
+  --bg-surface: #171a19;
+  --border-subtle: #242b28;
+
+  /* Typography */
+  --text-primary: #ecebe6;
+  --text-muted: #8e948f;
+
+  /* Brand Accents */
+  --brand-sage: #506c64;
+  --brand-vanilla: #f0f3bd;
+  --brand-terracotta: #b2675e;
+  --brand-blush: #f7b2bd;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg-canvas: var(--bg-canvas);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-surface: var(--bg-surface);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-vanilla: var(--brand-vanilla);
+  --color-brand-terracotta: var(--brand-terracotta);
+  --color-brand-blush: var(--brand-blush);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-canvas: #111313;
+    --bg-sidebar: #0d0f0e;
+    --bg-surface: #171a19;
+    --border-subtle: #242b28;
+    --text-primary: #ecebe6;
+    --text-muted: #8e948f;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-canvas);
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(240, 243, 189, 0.25);
+  color: #f0f3bd;
+}
+
+/* Custom Scrollbar — blends with dark palette */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #242b28 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242b28;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #506c64;
 }

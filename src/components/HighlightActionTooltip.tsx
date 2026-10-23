@@ -94,7 +94,7 @@ export function HighlightActionTooltip({ onCreateTangent }: HighlightActionToolt
             setTargetMessageId(null);
             window.getSelection()?.removeAllRanges();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-900 border border-emerald-500/50 hover:border-emerald-400 text-emerald-400 hover:text-emerald-300 text-xs font-medium rounded-full shadow-lg shadow-black/40 backdrop-blur transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-bg-surface border border-brand-sage/50 hover:border-brand-sage text-brand-sage hover:text-brand-blush text-xs font-medium rounded-full shadow-lg shadow-black/40 backdrop-blur transition-all active:scale-95"
         >
           <GitBranch className="w-3.5 h-3.5" />
           <span>Ask Tangent</span>

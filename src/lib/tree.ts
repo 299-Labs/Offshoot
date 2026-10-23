@@ -59,3 +59,70 @@ export function getLatestTrunkNode(
     .sort((a, b) => a.createdAt - b.createdAt);
   return trunkNodes.length > 0 ? trunkNodes[trunkNodes.length - 1] : null;
 }
+
+/**
+ * Returns the ordered trail of tangent root messages from the trunk down to the active node.
+ * Example: [Branch Level 1 Root, Branch Level 2 Root]
+ */
+export function getBranchTrail(
+  messagesMap: Record<string, DBMessage>,
+  activeNodeId: string | null
+): DBMessage[] {
+  if (!activeNodeId || !messagesMap[activeNodeId]) return [];
+
+  const trail: DBMessage[] = [];
+  let curr: DBMessage | undefined = messagesMap[activeNodeId];
+
+  while (curr) {
+    if (curr.isTangentRoot) {
+      trail.unshift(curr);
+    }
+    if (!curr.parentId) break;
+    curr = messagesMap[curr.parentId];
+  }
+
+  return trail;
+}
+
+/**
+ * Determines which branch root is the direct parent of this tangent root.
+ * Returns null if the branch sprouted directly off the trunk.
+ */
+export function getParentBranchRootId(
+  messagesMap: Record<string, DBMessage>,
+  tangentRoot: DBMessage
+): string | null {
+  let curr = tangentRoot.parentId ? messagesMap[tangentRoot.parentId] : null;
+
+  while (curr) {
+    if (curr.isTangentRoot) {
+      return curr.id;
+    }
+    curr = curr.parentId ? messagesMap[curr.parentId] : null;
+  }
+
+  return null; // Parent is the main Trunk
+}
+
+/**
+ * Drills down from a branch root to its deepest linear message,
+ * without crossing into child tangents.
+ */
+export function getBranchLeafId(
+  messagesMap: Record<string, DBMessage>,
+  branchRootId: string
+): string {
+  let curr = messagesMap[branchRootId];
+  if (!curr) return branchRootId;
+
+  while (curr && curr.childrenIds && curr.childrenIds.length > 0) {
+    const nextLinearChild = curr.childrenIds
+      .map((id) => messagesMap[id])
+      .find((m) => m && !m.isTangentRoot);
+
+    if (!nextLinearChild) break;
+    curr = nextLinearChild;
+  }
+
+  return curr.id;
+}

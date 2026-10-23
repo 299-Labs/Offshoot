@@ -77,20 +77,20 @@ export function TreeDrawer({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="w-full max-w-lg bg-neutral-900 border border-neutral-800 rounded-xl p-6 shadow-2xl text-neutral-100 flex flex-col gap-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-canvas/60 backdrop-blur-sm p-4">
+      <div className="w-full max-w-lg bg-bg-surface border border-border-subtle rounded-xl p-6 shadow-2xl text-text-primary flex flex-col gap-6">
         <div className="flex items-center gap-2 mb-4">
-          <GitBranch className="w-5 h-5 text-emerald-400" />
+          <GitBranch className="w-5 h-5 text-brand-sage" />
           <h2 className="text-lg font-semibold">Conversation Tree</h2>
         </div>
 
         {!activeConversation ? (
-          <div className="text-neutral-500 text-sm text-center py-4">
+          <div className="text-text-muted text-sm text-center py-4">
             No conversation yet. Start chatting to build your tree.
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto space-y-3">
-            <div className="text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">
+            <div className="text-xs font-medium text-text-muted uppercase tracking-wider mb-2">
               {activeConversation.title}
             </div>
             <div className="space-y-2">
@@ -111,30 +111,30 @@ export function TreeDrawer({ isOpen, onClose }: Props) {
                       onClick={() => setActiveNode(m.id)}
                       className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition ${
                         isActive
-                          ? 'bg-emerald-900/30 border border-emerald-500/50'
+                          ? 'bg-brand-sage/20 border border-brand-sage/50'
                           : isOnPath
-                            ? 'bg-neutral-800/50'
-                            : 'hover:bg-neutral-800'
+                            ? 'bg-bg-surface/50'
+                            : 'hover:bg-bg-canvas'
                       }`}
                     >
-                      <div className="w-1 h-4 bg-neutral-600 mx-0.5" />
+                      <div className="w-1 h-4 bg-text-muted mx-0.5" />
                       {isTangent && (
-                        <GitBranch className="w-3 h-3 text-neutral-500" />
+                        <GitBranch className="w-3 h-3 text-text-muted" />
                       )}
-                      {!isTangent && <MessageSquare className="w-3 h-3 text-neutral-500" />}
+                      {!isTangent && <MessageSquare className="w-3 h-3 text-text-muted" />}
                       <span
                         className={`text-sm truncate ${
                           isActive
-                            ? 'text-emerald-400 font-medium'
+                            ? 'text-brand-sage font-medium'
                             : isOnPath
-                              ? 'text-neutral-300'
-                              : 'text-neutral-500'
+                              ? 'text-text-primary'
+                              : 'text-text-muted'
                         }`}
                       >
                         {m.role === 'user' ? 'You:' : 'AI:'} {text.slice(0, 60)}
                         {text.length > 60 ? '…' : ''}
                         {m.anchorSnippet && (
-                          <span className="text-[10px] text-neutral-600 ml-1 italic">
+                          <span className="text-[10px] text-text-muted ml-1 italic">
                             '…'
                           </span>
                         )}
@@ -144,10 +144,10 @@ export function TreeDrawer({ isOpen, onClose }: Props) {
                 })}
 
             {activeNodeId && messages[activeNodeId]?.isTangentRoot && (
-              <div className="mt-4 pt-4 border-t border-neutral-800">
+              <div className="mt-4 pt-4 border-t border-border-subtle">
                 <button
                   onClick={handleMergeToTrunk}
-                  className="flex items-center gap-1.5 w-full justify-center px-4 py-2 text-xs font-medium text-emerald-400 hover:text-emerald-300 bg-emerald-950/30 hover:bg-emerald-950/50 rounded-lg border border-emerald-800/40 transition"
+                  className="flex items-center gap-1.5 w-full justify-center px-4 py-2 text-xs font-medium text-brand-sage hover:text-brand-blush bg-brand-sage/20 hover:bg-brand-sage/30 rounded-lg border border-brand-sage/40 transition"
                 >
                   <GitMerge className="w-3.5 h-3.5" />
                   Merge to Trunk
@@ -161,13 +161,13 @@ export function TreeDrawer({ isOpen, onClose }: Props) {
         <div className="mt-4 flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-neutral-400 hover:text-neutral-200 transition"
+            className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition"
           >
             Close
           </button>
           <button
             onClick={onClose}
-            className="flex items-center gap-1.5 bg-neutral-100 text-neutral-900 font-medium px-4 py-2 rounded-lg text-sm hover:bg-white transition"
+            className="flex items-center gap-1.5 bg-brand-sage text-bg-canvas font-medium px-4 py-2 rounded-lg text-sm hover:bg-brand-blush transition"
           >
             <ChevronRight className="w-4 h-4" /> Open Chat
           </button>

@@ -43,16 +43,16 @@ export function SettingsModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-xl p-6 shadow-2xl text-neutral-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-canvas/60 backdrop-blur-sm p-4">
+      <div className="w-full max-w-md bg-bg-surface border border-border-subtle rounded-xl p-6 shadow-2xl text-text-primary">
         <div className="flex items-center gap-2 mb-4">
-          <Key className="w-5 h-5 text-emerald-400" />
-          <h2 className="text-lg font-semibold">Settings</h2>
+          <Key className="w-5 h-5 text-brand-sage" />
+          <h2 className="text-lg font-semibold text-brand-sage">Settings</h2>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">
+            <label className="block text-xs font-medium text-brand-sage mb-1.5">
               OpenRouter API Key
             </label>
             <div className="relative">
@@ -61,32 +61,32 @@ export function SettingsModal({ isOpen, onClose }: Props) {
                 value={tempKey}
                 onChange={(e) => setTempKey(e.target.value)}
                 placeholder="sk-or-v1-..."
-                className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:border-neutral-500 font-mono"
+                className="w-full bg-bg-surface border border-border-subtle rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:border-brand-sage font-mono"
               />
               <button
                 type="button"
                 onClick={() => setShowKey(!showKey)}
-                className="absolute right-2.5 top-2.5 text-neutral-500 hover:text-neutral-300"
+                className="absolute right-2.5 top-2.5 text-text-muted hover:text-text-primary"
               >
-                {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showKey ? <EyeOff className="w-4 h-4 text-brand-sage" /> : <Eye className="w-4 h-4 text-brand-sage" />}
               </button>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-1">
+            <p className="text-[11px] text-brand-sage mt-1">
               Keys are stored strictly in your browser and sent directly to OpenRouter via proxy.
             </p>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-neutral-400 mb-1.5">
+            <label className="block text-xs font-medium text-brand-sage mb-1.5">
               Default Model
             </label>
             <select
               value={defaultModel}
               onChange={(e) => setDefaultModel(e.target.value)}
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-neutral-500"
+              className="w-full bg-bg-surface border border-border-subtle rounded-lg px-3 py-2 text-sm text-[#ecebe6] outline-none focus:outline-none focus:border-brand-sage focus:ring-1 focus:ring-brand-sage transition cursor-pointer accent-brand-sage"
             >
               {POPULAR_MODELS.map((m) => (
-                <option key={m.id} value={m.id}>
+                <option key={m.id} value={m.id} className="bg-bg-surface text-[#ecebe6]">
                   {m.name}
                 </option>
               ))}
@@ -97,15 +97,15 @@ export function SettingsModal({ isOpen, onClose }: Props) {
         <div className="mt-6 flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-neutral-400 hover:text-neutral-200 transition"
+            className="px-4 py-2 text-sm text-text-muted hover:text-text-primary transition"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex items-center gap-1.5 bg-neutral-100 text-neutral-900 font-medium px-4 py-2 rounded-lg text-sm hover:bg-white transition"
+            className="flex items-center gap-1.5 bg-brand-sage text-bg-canvas font-medium px-4 py-2 rounded-lg text-sm hover:bg-brand-blush transition"
           >
-            {saved ? <Check className="w-4 h-4 text-emerald-600" /> : <Save className="w-4 h-4" />}
+            {saved ? <Check className="w-4 h-4 text-brand-blush" /> : <Save className="w-4 h-4" />}
             {saved ? 'Saved' : 'Save'}
           </button>
         </div>

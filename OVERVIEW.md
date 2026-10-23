@@ -105,7 +105,7 @@ src/
   `TreeDrawer` still duplicates a bare walk for `activePathIds` (modal unmounted).
 - **Tree Drawer UI (centered modal)**: `TreeDrawer.tsx` (header button in `page.tsx`).
   Centered modal (`max-w-lg`) lists all `messages` in the active conversation;
-  active node `bg-emerald-900/30 border-emerald-500/50`, on-path `bg-neutral-800/50`;
+  active node `bg-brand-sage/20 border border-brand-sage/50`, on-path `bg-bg-surface/50`;
   click → `setActiveNode(m.id)`. `isTangentRoot` rows get `GitBranch` icon. When the
   active node `isTangentRoot`, **Merge to Trunk** builds a `USER:/ASSISTANT:` summary
   (300-char cap) into a `> 🌿 **Offshoot Summary (<anchor 40 chars>...)**` assistant
